@@ -178,7 +178,78 @@
         }
     </style>
 </head>
+<style>
+    /* 页面加载进度条 */
+    .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(to right, #0ea5e9, #3b82f6);
+        z-index: 9999;
+        width: 0;
+        transition: width 0.2s ease;
+    }
+    
+    /* 打印样式优化 */
+    @media print {
+        .no-print {
+            display: none !important;
+        }
+        
+        body {
+            font-size: 12pt;
+            color: #000;
+            background: #fff;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+        
+        header, footer, #backToTop, nav {
+            display: none !important;
+        }
+        
+        main {
+            padding-top: 0 !important;
+        }
+        
+        .hover-card:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .fade-in {
+            opacity: 1;
+            animation: none;
+        }
+        
+        section {
+            page-break-inside: avoid;
+            margin-bottom: 1cm;
+        }
+        
+        h2 {
+            font-size: 18pt;
+            margin-bottom: 0.5cm;
+        }
+        
+        .grid {
+            display: block;
+        }
+        
+        .grid > div {
+            margin-bottom: 1cm;
+        }
+    }
+</style>
+
 <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans">
+    <!-- 页面加载进度条 -->
+    <div id="progress-bar" class="progress-bar"></div>
+    
     <!-- 主题切换脚本 -->
     <script>
         // 检查系统主题偏好并设置初始主题
@@ -226,12 +297,14 @@
                 <div class="flex items-center">
                     <span class="text-xl font-bold text-primary-600 dark:text-primary-400">冷世聪</span>
                 </div>
-                <div class="flex items-center space-x-4">
+                <!-- 桌面导航 -->
+                <div class="hidden md:flex items-center space-x-4 desktop-nav-items">
                     <a href="#about" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 px-3 py-2 rounded-md text-sm font-medium">关于我</a>
                     <a href="#education" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 px-3 py-2 rounded-md text-sm font-medium">教育背景</a>
                     <a href="#experience" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 px-3 py-2 rounded-md text-sm font-medium">工作经历</a>
                     <a href="#campus-experience" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 px-3 py-2 rounded-md text-sm font-medium">校园经历</a>
                     <a href="#skills" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 px-3 py-2 rounded-md text-sm font-medium">专业技能</a>
+                    <a href="#certificates" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 px-3 py-2 rounded-md text-sm font-medium">证书与奖项</a>
                     <a href="#contact" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 px-3 py-2 rounded-md text-sm font-medium">联系方式</a>
                     <button onclick="toggleDarkMode()" class="p-2 rounded-full text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 focus:outline-none">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -259,6 +332,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                     </a>
+                    <a href="#" onclick="window.print(); return false;" class="hover-effect inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-white/10 shadow-md">
+                        下载简历
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
@@ -278,10 +357,10 @@
                         </div>
                     </div>
                     <div class="p-8">
-                        <div class="uppercase tracking-wide text-sm text-primary-600 dark:text-primary-400 font-semibold">生物科学 | 研究助理</div>
+                        <div class="uppercase tracking-wide text-sm text-primary-600 dark:text-primary-400 font-semibold">生物科学 | 学科交叉</div>
                         <h3 class="mt-2 text-2xl font-semibold">冷世聪</h3>
                         <p class="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
-                            浙江中医药大学生物科学学士，现任杭州安凯生物医药有限公司国际业务员。专注于原料药对外贸易，擅长分子生物学实验技术和国际贸易数据分析。广泛涉猎生命科学的理论、实验、学术和市场，注重创新与团队协作。
+                            浙江中医药大学生物科学学士，现任杭州安凯生物医药有限公司国际业务员。专注于原料药对外贸易，擅长分子生物学技术和国际贸易数据分析。广泛涉猎生命科学的理论、实验、学术和市场，注重创新与团队协作。
                         </p>
                         <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="flex items-center">
@@ -314,7 +393,10 @@
                     <div class="timeline-dot"></div>
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover-card">
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">浙江中医药大学</h3>
+                            <div class="flex items-center">
+                                <img src="https://bkimg.cdn.bcebos.com/pic/e824b899a9014c086e061d4b0f2215087bf40bd15e9e?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080" alt="浙江中医药大学校徽" class="w-12 h-12 mr-3 rounded-full object-contain bg-white">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">浙江中医药大学</h3>
+                            </div>
                             <span class="text-primary-600 dark:text-primary-400 font-medium">2019 - 2023</span>
                         </div>
                         <p class="mt-2 text-gray-600 dark:text-gray-300">生物科学学士</p>
@@ -329,7 +411,10 @@
                     <div class="timeline-dot"></div>
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover-card">
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">杭州市西湖高级中学</h3>
+                            <div class="flex items-center">
+                                <img src="https://img.picui.cn/free/2025/03/15/67d550acbc0fb.jpg" alt="杭州市西湖高级中学校徽" class="w-12 h-12 mr-3 rounded-full object-contain bg-white">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">杭州市西湖高级中学</h3>
+                            </div>
                             <span class="text-primary-600 dark:text-primary-400 font-medium">2016 - 2019</span>
                         </div>
                         <p class="mt-2 text-gray-600 dark:text-gray-300">高中</p>
@@ -349,16 +434,22 @@
                     <div class="timeline-dot"></div>
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover-card">
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">杭州安凯生物医药有限公司</h3>
+                            <div class="flex items-center">
+                                <img src="https://media.licdn.com/dms/image/v2/D4E0BAQE_bvqfIuXT5w/company-logo_100_100/B4EZWEJBAoHUAY-/0/1741678711590/_logo?e=1750291200&v=beta&t=Jc_sNYme4Yxhfh_O8-4z2MpxsFelzuIwwCgY39zswt0" alt="杭州安凯生物医药有限公司logo" class="w-12 h-12 mr-3 rounded-full object-contain bg-white">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">杭州安凯生物医药有限公司</h3>
+                            </div>
                             <span class="text-primary-600 dark:text-primary-400 font-medium">2024.02 - 至今</span>
                         </div>
-                        <p class="mt-2 text-gray-600 dark:text-gray-300">国际业务员</p>
+                        <p class="mt-2 text-gray-600 dark:text-gray-300">国际业务员 - 亚洲、欧洲</p>
                         <div class="mt-4 text-gray-600 dark:text-gray-300">
                             <ul class="list-disc list-inside space-y-2">
-                                <li>负责原料药国际贸易业务，开发和维护客户关系</li>
-                                <li>进行市场调研和分析，制定销售策略</li>
-                                <li>处理国际贸易文件和流程，确保交易顺利进行</li>
-                                <li>与生产部门协调，确保产品质量和交付时间</li>
+                                <li>工作摘要：负责亚欧地区医药国际贸易业务，开发和维护客户关系</li>
+                                <li>市场调研：参加CPHI、API等国内外展会，调研市场，制定销售策略</li>
+                                <li>文件处理：处理国际贸易文件和流程，确保交易顺利进行</li>
+                                <li>生产协调：与生产部门协调，确保产品质量和交付时间</li>
+                                <li>效率优化：设计和优化网络工具，推进信息共享，提升团队效率</li>
+                                <li>工作成果：与海正药业、Pharmstd等近百家药企的领导人建立良好关系</li>
+                                <li>工作语言：Business English</li>
                             </ul>
                         </div>
                     </div>
@@ -368,17 +459,20 @@
                     <div class="timeline-dot"></div>
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover-card">
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">杭州格缘科技服务有限公司</h3>
+                            <div class="flex items-center">
+                                <img src="https://media.licdn.com/dms/image/v2/D560BAQGTUHA5uf_ZqA/company-logo_200_200/company-logo_200_200/0/1703578992687?e=1750291200&v=beta&t=mgMriU_fGowxPmRIC8C-a39qkNa2tXfOVjk3Dqv6s5k" alt="杭州格缘科技服务有限公司logo" class="w-12 h-12 mr-3 rounded-full object-contain bg-white">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">杭州格缘科技服务有限公司</h3>
+                            </div>
                             <span class="text-primary-600 dark:text-primary-400 font-medium">2023.04 - 2023.08</span>
                         </div>
-                        <p class="mt-2 text-gray-600 dark:text-gray-300">SCI学术编辑 - 医学Q4期刊<a href="https://www.biolifesas.org/EN/home" target="_blank" class="text-primary-600 dark:text-primary-400 hover:underline">《Journal of Biological Regulators and Homeostatic Agents》</a></p>
+                        <p class="mt-2 text-gray-600 dark:text-gray-300">学术编辑 - 医学Q4期刊<a href="https://www.biolifesas.org/EN/home" target="_blank" class="text-primary-600 dark:text-primary-400 hover:underline">《Journal of Biological Regulators and Homeostatic Agents》</a></p>
                         <div class="mt-4 text-gray-600 dark:text-gray-300">
                             <ul class="list-disc list-inside space-y-2">
-                                <li>本职任务：处理投稿，撰写邮件，组织评审，反馈意见，审阅出版</li>
-                                <li>管理流程：主动重编工作指南，推广协作软件，规范文件系统</li>
-                                <li>设计表格：独立优化工作表加速 200% 录表，同事欣喜</li>
-                                <li>积极培训：培训10人团队效率软件和以AIGC(编辑邮件)的使用</li>
-                                <li>工作成果：出版论文20篇，优化多项任务</li>
+                                <li>工作摘要：处理投稿，撰写邮件，组织评审，反馈意见，审阅出版</li>
+                                <li>SOP建立：编撰工作指南，规范文件系统，确定审稿要点</li>
+                                <li>业务优化：领导创建业务记录智能系统，加速 200% 报表，同事欣喜</li>
+                                <li>科技培训：培训10人团队效率软件和AIGC的使用</li>
+                                <li>工作成果：出版论文30篇，优化多项任务</li>
                                 <li>工作语言：Academic English</li>
                             </ul>
                         </div>
@@ -389,13 +483,16 @@
                     <div class="timeline-dot"></div>
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover-card">
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">浙江省农业科学院 植保与微生物研究所</h3>
+                            <div class="flex items-center">
+                                <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.eACVqIM3lm6JcVJLkPDOrAAAAA?rs=1&pid=ImgDetMain" alt="浙江省农业科学院logo" class="w-12 h-12 mr-3 rounded-full object-contain bg-white">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">浙江省农业科学院 植保与微生物研究所</h3>
+                            </div>
                             <span class="text-primary-600 dark:text-primary-400 font-medium">2022.01 - 2023.04</span>
                         </div>
-                        <p class="mt-2 text-gray-600 dark:text-gray-300">科研实习生</p>
+                        <p class="mt-2 text-gray-600 dark:text-gray-300">科研实习生 - <a href="https://www.zaas.ac.cn/home/page/homeWeb/snky/pc/person/alone/cont-person_w.html?rid=2841" target="_blank" class="text-primary-600 dark:text-primary-400 hover:underline" title="林院长的介绍-浙江省农业科学院">林福呈院长团队</a></p>
                         <div class="mt-4 text-gray-600 dark:text-gray-300">
                             <ul class="list-disc list-inside space-y-2">
-                                <li>在浙中医大、浙大和浙农科院underline，以第一发明人成功申请1项微生物方向的国家发明专利，展现了抗压、科创和问题解决的能力</li>
+                                <li>在浙中医大、浙农科院和浙大指导下，以第一发明人成功申请1项<a href="http://www.cab.zju.edu.cn/swjs/2017/0914/c7264a639117/page.htm" target="_blank" class="text-primary-600 dark:text-primary-400 hover:underline" title="科研成果(#141)-浙江大学">微生物方向的国家发明专利</a>，展现了抗压、科创和问题解决的能力</li>
                                 <li>熟练掌握分子生物学实验技能，包括PCR、ELISA、真核表达、CoIP等技术</li>
                                 <li>精通蛋白质表达与纯化技术，包括质粒构建、色谱分离、电泳分析等方法</li>
                                 <li>参与团队科研项目，协助撰写研究报告和专利申请材料</li>
@@ -414,7 +511,10 @@
                     <div class="timeline-dot"></div>
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover-card">
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">浙江中医药大学 分子医学研究所</h3>
+                            <div class="flex items-center">
+                                <img src="https://bkimg.cdn.bcebos.com/pic/e824b899a9014c086e061d4b0f2215087bf40bd15e9e?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080" alt="浙江省农业科学院logo" class="w-12 h-12 mr-3 rounded-full object-contain bg-white">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">浙江中医药大学 分子医学研究所</h3>
+                            </div>
                             <span class="text-primary-600 dark:text-primary-400 font-medium">2020.09 - 2023.06</span>
                         </div>
                         <p class="mt-2 text-gray-600 dark:text-gray-300">研究方向（毕业论文）</p>
@@ -432,7 +532,10 @@
                     <div class="timeline-dot"></div>
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover-card">
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">浙江中医药大学 分子生物学和遗传学实验室</h3>
+                            <div class="flex items-center">
+                                <img src="https://bkimg.cdn.bcebos.com/pic/e824b899a9014c086e061d4b0f2215087bf40bd15e9e?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080" alt="浙江省农业科学院logo" class="w-12 h-12 mr-3 rounded-full object-contain bg-white">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">浙江中医药大学 分子生物学和遗传学实验室</h3>
+                            </div>
                             <span class="text-primary-600 dark:text-primary-400 font-medium">2020.09 - 2022.08</span>
                         </div>
                         <p class="mt-2 text-gray-600 dark:text-gray-300">教学助理（勤工助学）</p>
@@ -478,7 +581,7 @@
                     </h3>
                     <div class="flex flex-wrap">
                         <span class="skill-tag">人工智能工具</span>
-                        <span class="skill-tag">AlphaFold</span>
+                        <span class="skill-tag">AlphaFold 2</span>
                         <span class="skill-tag">生物信息学工具</span>
                         <span class="skill-tag">微软开发者项目</span>    
                         <span class="skill-tag">MATLAB</span>
@@ -495,9 +598,9 @@
                     </h3>
                     <div class="flex flex-wrap">
                         <span class="skill-tag">中文</span>
-                        <span class="skill-tag">英语（流利）</span>
-                        <span class="skill-tag">商务英语邮件</span>
-                        <span class="skill-tag">学术英语写作</span>
+                        <span class="skill-tag">英语（六级）</span>
+                        <span class="skill-tag">商务英语</span>
+                        <span class="skill-tag">学术写作</span>
                     </div>
                 </div>
                 
@@ -509,107 +612,15 @@
                     </h3>
                     <div class="flex flex-wrap">
                         <span class="skill-tag">团队协作</span>
-                        <span class="skill-tag">问题解决能力</span>
-                        <span class="skill-tag">时间管理</span>
-                        <span class="skill-tag">科学写作</span>
+                        <span class="skill-tag">问题解决</span>
+                        <span class="skill-tag">商务谈判</span>
                         <span class="skill-tag">项目管理</span>
                         <span class="skill-tag">创新思维</span>
-                        <span class="skill-tag">沟通能力</span>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- 联系方式 -->
-        <section id="contact" class="mb-20">
-            <h2 class="text-3xl font-bold mb-10 pb-2 border-b border-gray-200 dark:border-gray-700 fade-in">联系方式</h2>
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 fade-in delay-1">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-semibold mb-6">联系信息</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center mr-4">
-                                    <i class="fas fa-envelope text-primary-600 dark:text-primary-400"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">邮箱</p>
-                                    <p class="text-gray-800 dark:text-gray-200"><a href="mailto:siqiniq@limsym.onmicrosoft.com" class="hover:text-primary-600 dark:hover:text-primary-400">siqiniq@limsym.onmicrosoft.com</a></p>
-                                </div>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center mr-4">
-                                    <i class="fas fa-phone text-primary-600 dark:text-primary-400"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">电话</p>
-                                    <p class="text-gray-800 dark:text-gray-200"><a href="tel:+8617816758761" class="hover:text-primary-600 dark:hover:text-primary-400">+86-178-1675-8761</a></p>
-                                </div>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center mr-4">
-                                    <i class="fas fa-map-marker-alt text-primary-600 dark:text-primary-400"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">地址</p>
-                                    <p class="text-gray-800 dark:text-gray-200">浙江省杭州市西湖区</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-8">
-                            <h4 class="text-lg font-medium mb-4">社交媒体</h4>
-                            <div class="flex space-x-6 mb-6 md:mb-0">
-                                <a href="https://limsym-my.sharepoint.com/:i:/g/personal/siqiniq_limsym_onmicrosoft_com/Ef4wSNmZ7LJIpWmBSXqAcbwBS7eSwyw10SDo9ZffY9zHnA?e=QwSQKY" target="_blank" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
-                                    <span class="sr-only">微信</span>
-                                    <i class="fab fa-weixin text-2xl"></i>
-                                </a>
-                                <a href="https://www.linkedin.com/in/leng-shicong" target="_blank" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
-                                    <span class="sr-only">LinkedIn</span>
-                                    <i class="fab fa-linkedin text-2xl"></i>
-                                </a>
-                                <a href="https://github.com/Limsym" target="_blank" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
-                                    <span class="sr-only">GitHub</span>
-                                    <i class="fab fa-github text-2xl"></i>
-                                </a>
-                                <a href="https://www.researchgate.net/" target="_blank" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
-                                    <span class="sr-only">ResearchGate</span>
-                                    <i class="fab fa-researchgate text-2xl"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h3 class="text-xl font-semibold mb-6">发送消息</h3>
-                        <form class="space-y-4">
-                            <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">姓名</label>
-                                <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white">
-                            </div>
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">邮箱</label>
-                                <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white">
-                            </div>
-                            <div>
-                                <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">主题</label>
-                                <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white">
-                            </div>
-                            <div>
-                                <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">消息</label>
-                                <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white"></textarea>
-                            </div>
-                            <div>
-                                <button type="submit" class="hover-effect w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-md shadow-sm transition-colors">
-                                    发送消息
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
+                
         <!-- 证书与奖项 -->
         <section id="certificates" class="mb-20">
             <h2 class="text-3xl font-bold mb-10 pb-2 border-b border-gray-200 dark:border-gray-700 fade-in">证书与奖项</h2>
@@ -623,7 +634,7 @@
                         <h3 class="text-lg font-semibold"><a href="http://www.cab.zju.edu.cn/swjs/2017/0914/c7264a639117/page.htm" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors" target="_blank">国家发明专利</a></h3>
                     </div>
                     <p class="text-gray-600 dark:text-gray-300">国家知识产权局 | 2023</p>
-                    <p class="mt-2 text-gray-600 dark:text-gray-300">一种真菌在水稻增产上的应用，浙中医大/浙农科院/浙大</p>
+                    <p class="mt-2 text-gray-600 dark:text-gray-300">一种真菌在水稻增产上的应用，第一发明人，由浙中医大、浙农科院和浙大联合指导</p>
                 </div>
                 
                 <!-- 互联网+创新创业大赛 -->
@@ -691,6 +702,98 @@
                 </div>
             </div>
         </section>
+        
+        <!-- 联系方式 -->
+        <section id="contact" class="mb-20">
+            <h2 class="text-3xl font-bold mb-10 pb-2 border-b border-gray-200 dark:border-gray-700 fade-in">联系方式</h2>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 fade-in delay-1">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-6">联系信息</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center mr-4">
+                                    <i class="fas fa-envelope text-primary-600 dark:text-primary-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">邮箱</p>
+                                    <p class="text-gray-800 dark:text-gray-200"><a href="mailto:siqiniq@limsym.onmicrosoft.com" class="hover:text-primary-600 dark:hover:text-primary-400">siqiniq@limsym.onmicrosoft.com</a></p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center mr-4">
+                                    <i class="fas fa-phone text-primary-600 dark:text-primary-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">电话</p>
+                                    <p class="text-gray-800 dark:text-gray-200"><a href="tel:+8617816758761" class="hover:text-primary-600 dark:hover:text-primary-400">+86-178-1675-8761</a></p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center mr-4">
+                                    <i class="fas fa-map-marker-alt text-primary-600 dark:text-primary-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">地址</p>
+                                    <p class="text-gray-800 dark:text-gray-200">浙江省杭州市西湖区</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 联系方式部分的微信链接 -->
+                        <div class="mt-8">
+                            <h4 class="text-lg font-medium mb-4">社交媒体</h4>
+                            <div class="flex space-x-6 mb-6 md:mb-0">
+                                <a href="https://img.picui.cn/free/2025/03/15/67d551257302b.jpg" target="_blank" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 relative group">
+                                    <span class="sr-only">微信</span>
+                                    <i class="fab fa-weixin text-2xl"></i>
+                                    <img src="https://img.picui.cn/free/2025/03/15/67d551257302b.jpg" alt="微信二维码" class="absolute hidden group-hover:block bottom-full left-1/2 transform -translate-x-1/2 mb-2 rounded-md shadow-lg z-10 border-2 border-primary-500 max-w-none w-[300px] h-[400px]">
+                                </a>
+                                <a href="https://www.linkedin.com/in/leng-shicong" target="_blank" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
+                                    <span class="sr-only">LinkedIn</span>
+                                    <i class="fab fa-linkedin text-2xl"></i>
+                                </a>
+                                <a href="https://github.com/Limsym" target="_blank" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
+                                    <span class="sr-only">GitHub</span>
+                                    <i class="fab fa-github text-2xl"></i>
+                                </a>
+                                <a href="https://www.researchgate.net/" target="_blank" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
+                                    <span class="sr-only">ResearchGate</span>
+                                    <i class="fab fa-researchgate text-2xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-6">发送消息</h3>
+                        <form class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">姓名</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">邮箱</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white">
+                            </div>
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">主题</label>
+                                <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">消息</label>
+                                <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white"></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="hover-effect w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-md shadow-sm transition-colors">
+                                    发送消息
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- 页脚 -->
@@ -702,9 +805,10 @@
                     <p class="mt-2 text-gray-600 dark:text-gray-400">生物科学 | 交叉学科</p>
                 </div>
                 <div class="flex space-x-6 mb-6 md:mb-0">
-                    <a href="https://limsym-my.sharepoint.com/:i:/g/personal/siqiniq_limsym_onmicrosoft_com/Ef4wSNmZ7LJIpWmBSXqAcbwBS7eSwyw10SDo9ZffY9zHnA?e=QwSQKY" target="_blank" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
+                    <a href="https://img.picui.cn/free/2025/03/15/67d551257302b.jpg" target="_blank" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 relative group">
                         <span class="sr-only">微信</span>
                         <i class="fab fa-weixin text-2xl"></i>
+                        <img src="https://img.picui.cn/free/2025/03/15/67d551257302b.jpg" alt="微信二维码" class="absolute hidden group-hover:block bottom-full left-1/2 transform -translate-x-1/2 mb-2 rounded-md shadow-lg z-10 border-2 border-primary-500 max-w-none w-[300px] h-[400px]">
                     </a>
                     <a href="https://www.linkedin.com/in/leng-shicong" target="_blank" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
                         <span class="sr-only">LinkedIn</span>
@@ -719,7 +823,7 @@
                         <i class="fab fa-researchgate text-2xl"></i>
                     </a>
                 </div>
-                <div>
+                                        
                     <p class="text-center md:text-right text-gray-500 dark:text-gray-400">
                         &copy; 2025 冷世聪. 保留所有权利.
                     </p>
@@ -784,5 +888,74 @@
             });
         }
     </script>
-</body>
+
+    <!-- 移动端导航脚本 -->
+    <script>
+        // 交互脚本
+        <script>
+            // ... 现有代码 ...
+            
+            // 滚动监听和动态导航高亮
+            document.addEventListener('DOMContentLoaded', function() {
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('nav a');
+                
+                function highlightNavigation() {
+                    let scrollY = window.pageYOffset;
+                    
+                    sections.forEach(section => {
+                        const sectionHeight = section.offsetHeight;
+                        const sectionTop = section.offsetTop - 100;
+                        const sectionId = section.getAttribute('id');
+                        
+                        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                            navLinks.forEach(link => {
+                                link.classList.remove('text-primary-600', 'dark:text-primary-400');
+                                link.classList.add('text-gray-600', 'dark:text-gray-300');
+                                
+                                if (link.getAttribute('href') === '#' + sectionId) {
+                                    link.classList.remove('text-gray-600', 'dark:text-gray-300');
+                                    link.classList.add('text-primary-600', 'dark:text-primary-400');
+                                }
+                            });
+                        }
+                    });
+                }
+                
+                window.addEventListener('scroll', highlightNavigation);
+                highlightNavigation(); // 初始化高亮
+            });
+            
+            // 移动端导航菜单
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+                
+                // 点击导航链接后关闭菜单
+                document.querySelectorAll('#mobile-menu a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
+            }
+            
+            // 添加预加载关键资源 -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+            
+            <!-- 添加页面描述和关键词 -->
+            <meta name="description" content="冷世聪的个人简历网站，展示生物科学和医药业务相关经验与技能">
+            <meta name="keywords" content="冷世聪,简历,生物科学,医药业务,研究助理,浙江中医药大学">
+            
+            <!-- 添加网站图标 -->
+            <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>👨‍🔬</text></svg>" type="image/svg+xml">
+            
+            <!-- ... 现有代码 ...-->
+        </script>
+    </body>
 </html>
