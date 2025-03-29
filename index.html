@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>冷世聪 - 个人简历</title>
+    
+    <!-- 添加预加载关键资源 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- 添加页面描述和关键词 -->
+    <meta name="description" content="冷世聪的个人简历网站，展示生物科学和医药业务相关经验与技能">
+    <meta name="keywords" content="冷世聪,简历,生物科学,医药业务,研究助理,浙江中医药大学">          
+    <!-- 添加网站图标 -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>👨‍🔬</text></svg>" type="image/svg+xml">
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 字体图标 -->
@@ -178,17 +189,42 @@
         }
     </style>
 </head>
+<!-- 在<style>标签内添加进度条样式 -->
 <style>
     /* 页面加载进度条 */
-    .progress-bar {
+    #progress-bar {
         position: fixed;
         top: 0;
         left: 0;
-        height: 3px;
-        background: linear-gradient(to right, #0ea5e9, #3b82f6);
-        z-index: 9999;
-        width: 0;
-        transition: width 0.2s ease;
+        height: 4px; /* 增加高度 */
+        background: linear-gradient(to right, #4f46e5, #60a5fa);
+        width: 0%;
+        z-index: 1000;
+        transition: width 0.2s ease-out;
+        box-shadow: 0 0 10px rgba(79, 70, 229, 0.7); /* 添加发光效果 */
+    }
+    #backToTop {
+        position: fixed;
+        bottom: 6rem;
+        right: 2rem;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #4f46e5;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: move; /* 指示可拖动 */
+        opacity: 0;
+        transition: opacity 0.3s, background-color 0.3s;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        touch-action: none; /* 防止触摸设备上的滚动干扰 */
+    }
+    
+    #backToTop:hover {
+        background-color: #3730a3;
     }
     
     /* 打印样式优化 */
@@ -287,6 +323,15 @@
             document.querySelectorAll('.fade-in').forEach(item => {
                 observer.observe(item);
             });
+            
+            // 添加阅读进度条功能
+            const progressBar = document.getElementById('progress-bar');
+            window.addEventListener('scroll', function() {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + '%';
+            });
         });
     </script>
 
@@ -369,7 +414,7 @@
                             </div>
                             <div class="flex items-center">
                                 <i class="fas fa-phone text-primary-500 dark:text-primary-400 mr-2"></i>
-                                <span><a href="tel:+8617816758761" class="hover:text-primary-600 dark:hover:text-primary-400">+86 178-1675-8761</a></span>
+                                <span><a href="tel:+8617816758748" class="hover:text-primary-600 dark:hover:text-primary-400">+86 178-1675-8748</a></span>
                             </div>
                             <div class="flex items-center">
                                 <i class="fas fa-map-marker-alt text-primary-500 dark:text-primary-400 mr-2"></i>
@@ -485,11 +530,11 @@
                         <div class="flex flex-col md:flex-row md:justify-between md:items-center">
                             <div class="flex items-center">
                                 <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.eACVqIM3lm6JcVJLkPDOrAAAAA?rs=1&pid=ImgDetMain" alt="浙江省农业科学院logo" class="w-12 h-12 mr-3 rounded-full object-contain bg-white">
-                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">浙江省农业科学院 植保与微生物研究所</h3>
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">浙江省农业科学院 植物保护与微生物研究所</h3>
                             </div>
                             <span class="text-primary-600 dark:text-primary-400 font-medium">2022.01 - 2023.04</span>
                         </div>
-                        <p class="mt-2 text-gray-600 dark:text-gray-300">科研实习生 - <a href="https://www.zaas.ac.cn/home/page/homeWeb/snky/pc/person/alone/cont-person_w.html?rid=2841" target="_blank" class="text-primary-600 dark:text-primary-400 hover:underline" title="林院长的介绍-浙江省农业科学院">林福呈院长团队</a></p>
+                        <p class="mt-2 text-gray-600 dark:text-gray-300">科研实习生 - <a href="https://www.zaas.ac.cn/home/page/homeWeb/snky/pc/person/alone/cont-person_w.html?rid=2841" target="_blank" class="text-primary-600 dark:text-primary-400 hover:underline" title="林院长的介绍-浙江省农业科学院">林福呈教授</a>团队</p>
                         <div class="mt-4 text-gray-600 dark:text-gray-300">
                             <ul class="list-disc list-inside space-y-2">
                                 <li>在浙中医大、浙农科院和浙大指导下，以第一发明人成功申请1项<a href="http://www.cab.zju.edu.cn/swjs/2017/0914/c7264a639117/page.htm" target="_blank" class="text-primary-600 dark:text-primary-400 hover:underline" title="科研成果(#141)-浙江大学">微生物方向的国家发明专利</a>，展现了抗压、科创和问题解决的能力</li>
@@ -726,7 +771,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500 dark:text-gray-400">电话</p>
-                                    <p class="text-gray-800 dark:text-gray-200"><a href="tel:+8617816758761" class="hover:text-primary-600 dark:hover:text-primary-400">+86-178-1675-8761</a></p>
+                                    <p class="text-gray-800 dark:text-gray-200"><a href="tel:+8617816758748" class="hover:text-primary-600 dark:hover:text-primary-400">+86-178-1675-8748</a></p>
                                 </div>
                             </div>
                             <div class="flex items-center">
@@ -832,32 +877,118 @@
         </div>
     </footer>
 
-    <!-- 回到顶部按钮 -->
-    <button id="backToTop" class="fixed bottom-6 right-6 p-3 rounded-full bg-primary-600 text-white shadow-lg opacity-0 transition-opacity duration-300 hover:bg-primary-700 focus:outline-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-        </svg>
-    </button>
+ <!-- 回到顶部按钮 -->
+<button id="backToTop" class="p-3 rounded-full bg-primary-600 text-white shadow-lg opacity-0 hover:bg-primary-700 focus:outline-none">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+    </svg>
+</button>
 
     <!-- 交互脚本 -->
     <script>
         // 回到顶部按钮
-        const backToTopButton = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.style.opacity = '1';
+    const backToTopButton = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.style.opacity = '1';
+        } else {
+            backToTopButton.style.opacity = '0';
+        }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // 添加拖拽功能
+    let isDragging = false;
+    let currentY;
+    let initialY;
+    let yOffset = 0;
+    
+    function dragStart(e) {
+        if (e.type === "touchstart") {
+            initialY = e.touches[0].clientY - yOffset;
+        } else {
+            initialY = e.clientY - yOffset;
+        }
+        isDragging = true;
+    }
+    
+    function dragEnd() {
+        isDragging = false;
+        // 保存按钮位置到本地存储
+        localStorage.setItem('backToTopY', yOffset);
+    }
+    
+    function drag(e) {
+        if (isDragging) {
+            e.preventDefault();
+            
+            if (e.type === "touchmove") {
+                currentY = e.touches[0].clientY - initialY;
             } else {
-                backToTopButton.style.opacity = '0';
+                currentY = e.clientY - initialY;
             }
-        });
+            
+            yOffset = currentY;
+            
+            // 限制按钮在视窗内
+            const windowHeight = window.innerHeight;
+            const buttonHeight = backToTopButton.offsetHeight;
+            
+            if (yOffset < -windowHeight + buttonHeight + 20) {
+                yOffset = -windowHeight + buttonHeight + 20;
+            }
+            if (yOffset > 0) {
+                yOffset = 0;
+            }
+            
+            setTranslate(0, yOffset, backToTopButton);
+        }
+    }
+    
+    function setTranslate(xPos, yPos, el) {
+        el.style.transform = `translate3d(0, ${yPos}px, 0)`;
+    }
+    
+    // 初始化按钮位置
+    document.addEventListener("DOMContentLoaded", function() {
+        // 从本地存储恢复按钮位置
+        const savedY = localStorage.getItem('backToTopY');
+        if (savedY !== null) {
+            yOffset = parseFloat(savedY);
+            setTranslate(0, yOffset, backToTopButton);
+        }
         
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+        // 添加拖拽事件监听器
+        backToTopButton.addEventListener("mousedown", dragStart);
+        backToTopButton.addEventListener("touchstart", dragStart, { passive: false });
+        
+        window.addEventListener("mouseup", dragEnd);
+        window.addEventListener("touchend", dragEnd);
+        
+        window.addEventListener("mousemove", drag);
+        window.addEventListener("touchmove", drag, { passive: false });
+        
+        // 强化进度条效果
+        const progressBar = document.getElementById('progress-bar');
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + '%';
+            
+            // 根据滚动进度改变进度条颜色
+            const hue = 240 - (scrolled * 0.6); // 从蓝色到紫色的渐变
+            progressBar.style.background = `linear-gradient(to right, hsl(${hue}, 70%, 60%), hsl(${hue-30}, 70%, 60%))`;
         });
+    });
+    
         
         // 平滑滚动到锚点
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -943,19 +1074,6 @@
                 });
             }
             
-            // 添加预加载关键资源 -->
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-            
-            <!-- 添加页面描述和关键词 -->
-            <meta name="description" content="冷世聪的个人简历网站，展示生物科学和医药业务相关经验与技能">
-            <meta name="keywords" content="冷世聪,简历,生物科学,医药业务,研究助理,浙江中医药大学">
-            
-            <!-- 添加网站图标 -->
-            <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>👨‍🔬</text></svg>" type="image/svg+xml">
-            
-            <!-- ... 现有代码 ...-->
-        </script>
+            </script>
     </body>
 </html>
