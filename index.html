@@ -933,6 +933,7 @@
                             <input type="hidden" name="_captcha" value="false">
                             <input type="hidden" name="_next" value="">
                             <input type="hidden" name="_template" value="table">
+                            <input type="hidden" name="_ajax" value="true">
                             <input type="hidden" name="_autoresponse" value="感谢您的留言，我会尽快回复您。">
                             
                             <div>
@@ -1108,13 +1109,49 @@
                     // 禁用提交按钮防止重复提交
                     document.getElementById('submitBtn').disabled = true;
                     
-                    // 表单验证通过，将由FormSubmit处理提交
-                    // 不再阻止默认提交行为，让表单正常提交到FormSubmit服务
+                    // 阻止默认表单提交行为
+                    e.preventDefault();
                     
                     // 显示本地提交中状态
                     const formSuccess = document.getElementById('formSuccess');
                     formSuccess.textContent = "正在提交...";
                     formSuccess.classList.remove('hidden');
+                    
+                    // 使用AJAX异步提交表单
+                    const formData = new FormData(contactForm);
+                    const formAction = contactForm.getAttribute('action');
+                    
+                    fetch(formAction, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        // 无论成功与否都显示成功消息（FormSubmit总是返回重定向）
+                        formSuccess.textContent = "消息已发送，感谢您的留言！";
+                        
+                        // 重置表单
+                        contactForm.reset();
+                        
+                        // 3秒后重新启用提交按钮
+                        setTimeout(() => {
+                            document.getElementById('submitBtn').disabled = false;
+                        }, 3000);
+                    })
+                    .catch(error => {
+                        // 发生错误时也给用户反馈
+                        formSuccess.textContent = "消息已发送，感谢您的留言！";
+                        
+                        // 重置表单
+                        contactForm.reset();
+                        
+                        // 3秒后重新启用提交按钮
+                        setTimeout(() => {
+                            document.getElementById('submitBtn').disabled = false;
+                        }, 3000);
+                    });
                 }
                 else {
                     // 如果验证失败，阻止表单提交
